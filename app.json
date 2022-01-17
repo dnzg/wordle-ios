@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "wordle-ios",
+    "name": "Вордл",
     "slug": "wordle-ios",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -16,20 +16,10 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "config": {
-        "googleMobileAdsAppId": "ca-app-pub-7565791511836797~4474897677"
-      }
+      "bundleIdentifier": "com.extensi.one.wordle-ios"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "plugins": [
-      [
-        "expo-ads-admob",
-        {
-          "userTrackingPermission": "This identifier will be used to deliver personalized ads to you."
-        }
-      ]
-    ]
+    }
   }
 }

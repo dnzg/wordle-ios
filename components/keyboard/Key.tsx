@@ -11,6 +11,8 @@ type Props = {
   width?: number;
   status?: CharStatus;
   onClick: (value: KeyValue) => void;
+  style?: object;
+  styleText?: object;
 };
 
 export const Key = ({
@@ -19,23 +21,12 @@ export const Key = ({
   width = 40,
   value,
   onClick,
+  style,
+  styleText,
 }: Props) => {
-  // const classes = classnames(
-  //   "flex items-center justify-center rounded mx-0.5 text-xs font-bold cursor-pointer",
-  //   {
-  //     "bg-slate-200 hover:bg-slate-300 active:bg-slate-400": !status,
-  //     "bg-slate-400 text-white": status === "absent",
-  //     "bg-green-500 hover:bg-green-600 active:bg-green-700 text-white":
-  //       status === "correct",
-  //     "bg-yellow-500 hover:bg-yellow-600 active:bg-yellow-700 text-white":
-  //       status === "present",
-  //   }
-  // );
-
   return (
     <TouchableOpacity
       style={{
-        height: 51,
         width: "10%",
         flexGrow: 1,
         padding: 12,
@@ -54,6 +45,7 @@ export const Key = ({
             : "rgba(0,0,0,0)",
         borderRadius: 58,
         margin: 3,
+        ...style,
       }}
       // className={classes}
       onPress={() => onClick(value)}
@@ -64,6 +56,7 @@ export const Key = ({
           textAlign: "center",
           fontSize: 18,
           fontWeight: "700",
+          ...styleText,
         }}
       >
         {children || value}
