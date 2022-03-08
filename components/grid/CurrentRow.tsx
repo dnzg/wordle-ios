@@ -4,9 +4,10 @@ import tw from "tailwind-react-native-classnames";
 
 type Props = {
   guess: string;
+  colorScheme: string;
 };
 
-export const CurrentRow = ({ guess }: Props) => {
+export const CurrentRow = ({ guess, colorScheme }: Props) => {
   const splitGuess = guess.split("");
   const emptyCells = Array.from(Array(5 - splitGuess.length));
 
@@ -17,10 +18,10 @@ export const CurrentRow = ({ guess }: Props) => {
       })}
     >
       {splitGuess.map((letter, i) => (
-        <Cell key={i} value={letter} />
+        <Cell key={i} value={letter} colorScheme={colorScheme} />
       ))}
       {emptyCells.map((_, i) => (
-        <Cell key={i} />
+        <Cell key={i} colorScheme={colorScheme} />
       ))}
     </View>
   );

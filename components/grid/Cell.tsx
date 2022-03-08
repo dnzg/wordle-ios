@@ -5,9 +5,10 @@ import { Text, View } from "react-native";
 type Props = {
   value?: string;
   status?: CharStatus;
+  colorScheme?: string;
 };
 
-export const Cell = ({ value, status }: Props) => {
+export const Cell = ({ value, status, colorScheme }: Props) => {
   return (
     <>
       <View
@@ -22,15 +23,18 @@ export const Cell = ({ value, status }: Props) => {
           marginLeft: 5,
           marginRight: 5,
           marginBottom: 4,
-          backgroundColor: !status
-            ? "#EBEBEB"
-            : status === "absent"
-            ? "#4E24B8"
-            : status === "correct"
-            ? "#2ecc71"
-            : status === "present"
-            ? "#FFC75D"
-            : "",
+          backgroundColor:
+            !status && colorScheme === "dark"
+              ? "#222"
+              : !status
+              ? "#EBEBEB"
+              : status === "absent"
+              ? "#4E24B8"
+              : status === "correct"
+              ? "#2ecc71"
+              : status === "present"
+              ? "#FFC75D"
+              : "",
         }}
       >
         <Text
@@ -38,7 +42,12 @@ export const Cell = ({ value, status }: Props) => {
             textAlign: "center",
             fontSize: 18,
             fontWeight: "700",
-            color: !status ? "black" : "white",
+            color:
+              !status && colorScheme === "dark"
+                ? "white"
+                : !status
+                ? "black"
+                : "white",
           }}
         >
           {value}

@@ -2,7 +2,7 @@ import { Cell } from "./Cell";
 import { Text, View } from "react-native";
 import tw from "tailwind-react-native-classnames";
 
-export const EmptyRow = () => {
+export const EmptyRow = ({ colorScheme }: { colorScheme: string }) => {
   const emptyCells = Array.from(Array(5));
 
   return (
@@ -12,7 +12,7 @@ export const EmptyRow = () => {
       })}
     >
       {emptyCells.map((_, i) => (
-        <Cell key={i} />
+        <Cell key={i} colorScheme={colorScheme} />
       ))}
     </View>
   );

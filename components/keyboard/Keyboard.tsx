@@ -97,7 +97,8 @@ export const Keyboard = ({
         <Key value="Б" onClick={onClick} status={charStatuses["Б"]} />
         <Key value="Ю" onClick={onClick} status={charStatuses["Ю"]} />
         <Key
-          width={65.4}
+          // width={65.4}
+          padding={18}
           style={{ marginBottom: -4 }}
           value="DELETE"
           onClick={onClick}

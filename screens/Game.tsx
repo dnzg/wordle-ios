@@ -1,18 +1,18 @@
 import { StyleSheet } from "react-native";
-import { Text, View, Share } from "react-native";
+import { Text, View, Share, useColorScheme } from "react-native";
 import * as Clipboard from "expo-clipboard";
 import React, { useState, useEffect, SetStateAction } from "react";
-import { isWordInWordList, isWinningWord, getNewWord } from "./lib/words";
-import { Button } from "./components/Button";
-import { getGuessStatuses } from "./lib/statuses";
+import { isWordInWordList, isWinningWord, getNewWord } from "../lib/words";
+import { Button } from "../components/Button";
+import { getGuessStatuses } from "../lib/statuses";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { StatusBar } from "expo-status-bar";
 import { LinearGradient } from "expo-linear-gradient";
-import { Grid } from "./components/grid/Grid";
-import { Keyboard } from "./components/keyboard/Keyboard";
+import { Grid } from "../components/grid/Grid";
+import { Keyboard } from "../components/keyboard/Keyboard";
 import tw from "tailwind-react-native-classnames";
-import AppMetrica from "react-native-appmetrica";
-import Ad from "./components/Ad";
+import Ad from "../components/Ad";
+// import { analytics, AnalyticsPage } from "./lib/ga";
 
 type RootStackParamList = {
   Home: undefined;
@@ -21,6 +21,7 @@ type RootStackParamList = {
 
 type Props = NativeStackScreenProps<RootStackParamList, "Game">;
 export default function GameScreen({ navigation }: Props) {
+  const colorScheme = useColorScheme();
   const [guesses, setGuesses] = useState<string[]>([]);
   const [currentGuess, setCurrentGuess] = useState("");
   const [isGameWon, setIsGameWon] = useState(false);
@@ -37,7 +38,7 @@ export default function GameScreen({ navigation }: Props) {
     setIsGameLost(false);
     setCurrentGuess("");
     setClipvar("");
-    AppMetrica.reportEvent("Restart");
+    // analytics.event(new Event("Restart"));
   };
 
   useEffect(() => {
@@ -87,13 +88,14 @@ export default function GameScreen({ navigation }: Props) {
 
       if (isWordWinningWord) {
         getEmoji();
-        AppMetrica.reportEvent("Win", { word: winningWord });
+        // analytics.event(new Event("Video"));
+        // analytics.event(new Event("Lose"));
         return setIsGameWon(true);
       }
 
       if (guesses.length === 5) {
         getEmoji();
-        AppMetrica.reportEvent("Lose", { word: winningWord });
+        // analytics.event(new Event("Lose"));
         setIsGameLost(true);
       }
     }
@@ -147,8 +149,24 @@ export default function GameScreen({ navigation }: Props) {
     return setAlert("Скопировано!");
   };
 
+  const manual = () => {
+    // AnalyticsPage("Question");
+    navigation.navigate("Home");
+  };
+
   return (
-    <View style={styles.container}>
+    // <View style={styles.container}>
+    <View
+      // colors={["rgb(80,38,189)", "#330f8d"]}
+      // end={{ x: 0.5, y: 0.85 }}
+      style={styles.container}
+      // style={styles.background}
+    >
+      {/* <LinearGradient
+        colors={["rgb(80,38,189)", "#330f8d"]}
+        end={{ x: 0.5, y: 0.85 }}
+        style={styles.background}
+      /> */}
       <StatusBar backgroundColor="white" />
       {isWordNotFound && alertText !== "" ? (
         <View style={styles.alert}>
@@ -186,7 +204,7 @@ export default function GameScreen({ navigation }: Props) {
             text="Поделиться"
             onPress={() => copyToCb()}
             style={{
-              marginTop: 48,
+              marginTop: 36,
               backgroundColor: "#2ecc71",
             }}
           />
@@ -194,7 +212,7 @@ export default function GameScreen({ navigation }: Props) {
             text="Давайте еще раз"
             onPress={() => restart()}
             style={{
-              marginBottom: 48,
+              marginBottom: 42,
             }}
           />
         </View>
@@ -256,6 +274,7 @@ export default function GameScreen({ navigation }: Props) {
           guesses={guesses}
           currentGuess={currentGuess}
           winningWord={winningWord}
+          colorScheme={colorScheme ? colorScheme : "light"}
         />
         <Keyboard
           onChar={onChar}
@@ -263,7 +282,7 @@ export default function GameScreen({ navigation }: Props) {
           onEnter={onEnter}
           guesses={guesses}
           winningWord={winningWord}
-          manual={() => navigation.navigate("Home")}
+          manual={() => manual()}
         />
       </View>
       <Ad />
@@ -294,7 +313,7 @@ const styles = StyleSheet.create({
     borderTopStartRadius: 12,
     width: "100%",
     backgroundColor: "rgba(0,0,0,0)",
-    zIndex: 2,
+    zIndex: 9999999,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",

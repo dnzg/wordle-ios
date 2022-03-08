@@ -8,28 +8,32 @@ import tw from "tailwind-react-native-classnames";
 type Props = {
   children?: ReactNode;
   value: KeyValue;
-  width?: number;
   status?: CharStatus;
   onClick: (value: KeyValue) => void;
   style?: object;
   styleText?: object;
+  padding?: number;
 };
 
 export const Key = ({
   children,
   status,
-  width = 40,
   value,
   onClick,
   style,
   styleText,
+  padding,
 }: Props) => {
   return (
     <TouchableOpacity
       style={{
         width: "10%",
         flexGrow: 1,
-        padding: 12,
+        paddingLeft: padding ? padding : 12,
+        paddingRight: padding ? padding : 12,
+        paddingTop: 9,
+        paddingBottom: 9,
+
         // borderColor: "black",
         // borderWidth: 1,
         display: "flex",
